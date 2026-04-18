@@ -8,96 +8,138 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #d4af37; --black: #0a0a0a; --dark-grey: #1a1a1a; }
-        body { background: var(--black); color: #fff; font-family: 'Inter', sans-serif; margin: 0; scroll-behavior: smooth; }
+        * { box-sizing: border-box; }
+        body { background: var(--black); color: #fff; font-family: 'Inter', sans-serif; margin: 0; scroll-behavior: smooth; overflow-x: hidden; }
         .gold-text { color: var(--gold); font-family: 'Playfair Display', serif; }
         
         /* Navigation */
-        nav { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; position: sticky; top: 0; background: rgba(10,10,10,0.9); z-index: 1000; }
-        .logo { font-size: 24px; font-weight: bold; letter-spacing: 2px; }
+        nav { padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; position: sticky; top: 0; background: rgba(10,10,10,0.95); z-index: 1000; }
+        .logo { font-size: 26px; font-weight: bold; letter-spacing: 3px; text-decoration: none; }
 
         /* Hero Section */
-        .hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
-        .btn-gold { background: var(--gold); color: #000; padding: 15px 35px; text-decoration: none; font-weight: 600; border-radius: 50px; transition: 0.3s; margin-top: 20px; display: inline-block; }
-        .btn-gold:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+        .hero { height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; background: radial-gradient(circle, #1a1a1a 0%, #0a0a0a 100%); }
+        .hero h1 { font-size: clamp(45px, 10vw, 80px); margin: 0; line-height: 1.1; }
+        .hero p { color: #888; max-width: 600px; margin: 20px 0; font-size: 18px; }
+
+        /* Buttons */
+        .btn-gold { background: var(--gold); color: #000; padding: 15px 40px; text-decoration: none; font-weight: 700; border-radius: 5px; transition: 0.3s; display: inline-block; border: 1px solid var(--gold); }
+        .btn-gold:hover { background: transparent; color: var(--gold); box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+
+        /* Services / About Section */
+        .section-padding { padding: 100px 10%; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 50px; }
+        .service-card { padding: 40px; background: var(--dark-grey); border: 1px solid #333; transition: 0.3s; border-radius: 10px; }
+        .service-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .service-card i { font-size: 40px; color: var(--gold); margin-bottom: 20px; }
 
         /* Projects Section */
-        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 50px 20px; max-width: 1200px; margin: 0 auto; }
-        .project-card { background: var(--dark-grey); border-radius: 15px; overflow: hidden; border: 1px solid #333; transition: 0.4s; }
+        .project-card { background: var(--dark-grey); border-radius: 15px; overflow: hidden; border: 1px solid #333; transition: 0.4s; text-align: left; }
         .project-card:hover { border-color: var(--gold); transform: translateY(-10px); }
-        .project-img { width: 100%; height: 200px; background-size: cover; background-position: center; }
+        .project-img { width: 100%; height: 250px; background-size: cover; background-position: center; filter: grayscale(40%); transition: 0.5s; }
+        .project-card:hover .project-img { filter: grayscale(0%); }
 
         /* Contact Form */
-        .contact-container { max-width: 600px; margin: 50px auto; padding: 40px 20px; background: var(--dark-grey); border-radius: 20px; border: 1px solid #333; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #222; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: var(--gold); border: none; font-weight: bold; cursor: pointer; border-radius: 8px; transition: 0.3s; }
-        button:hover { background: #b8962d; }
+        .contact-container { max-width: 800px; margin: 50px auto; padding: 50px; background: #111; border-radius: 20px; border: 1px solid var(--gold); }
+        input, textarea { width: 100%; padding: 15px; margin: 15px 0; background: #000; border: 1px solid #333; color: #fff; border-radius: 5px; font-size: 16px; }
+        input:focus, textarea:focus { border-color: var(--gold); outline: none; }
+        .submit-btn { width: 100%; padding: 18px; background: var(--gold); border: none; font-weight: bold; cursor: pointer; border-radius: 5px; font-size: 18px; transition: 0.4s; }
 
-        /* Footer Icons */
-        .social-bar { display: flex; justify-content: center; gap: 30px; padding: 40px 0; }
-        .social-icon { color: #fff; font-size: 28px; transition: 0.3s; text-decoration: none; }
-        .social-icon:hover { color: var(--gold); transform: translateY(-5px); }
+        /* Footer & Floating Icons */
+        footer { padding: 60px 20px; border-top: 1px solid #333; text-align: center; background: #050505; }
+        .social-bar { display: flex; justify-content: center; gap: 40px; margin: 30px 0; }
+        .social-icon { color: #fff; font-size: 30px; transition: 0.3s; text-decoration: none; }
+        .social-icon:hover { color: var(--gold); transform: scale(1.2); }
+        
+        @media (max-width: 768px) {
+            .contact-container { margin: 20px; padding: 30px; }
+        }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo gold-text">VELTRO</div>
-        <div style="font-size: 14px; color: #888;">Agency</div>
+        <a href="#" class="logo gold-text">VELTRO</a>
+        <a href="#contact" class="btn-gold" style="padding: 10px 20px; font-size: 14px;">Contact Us</a>
     </nav>
 
     <section class="hero">
-        <h1 style="font-size: clamp(40px, 8vw, 70px); margin: 0;" class="gold-text">Elevate Your Brand</h1>
-        <p style="color: #ccc; max-width: 600px; line-height: 1.6;">Creating high-resolution digital experiences for the modern world. Specializing in Agentic Web Design.</p>
-        <a href="#contact" class="btn-gold">Get A Quote</a>
+        <h1 class="gold-text">AGENTIC WEB<br>EXPERIENCES</h1>
+        <p>Luxury. Precision. Intelligence. We don't just build websites; we build high-performance digital assets for your brand.</p>
+        <a href="#projects" class="btn-gold" style="background: transparent; color: var(--gold); margin-right: 15px;">Our Work</a>
+        <a href="#contact" class="btn-gold">Start a Project</a>
     </section>
 
-    <section id="projects">
-        <h2 style="text-align: center;" class="gold-text">Our Featured Work</h2>
-        <div class="project-grid">
+    <section class="section-padding">
+        <h2 class="gold-text" style="font-size: 40px;">What We Do</h2>
+        <div class="grid">
+            <div class="service-card">
+                <i class="fas fa-magic"></i>
+                <h3 class="gold-text">Modern Design</h3>
+                <p style="color: #888;">Ultra-luxury aesthetics that define your brand's presence.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-robot"></i>
+                <h3 class="gold-text">AI Integration</h3>
+                <p style="color: #888;">Agentic features that automate and enhance user experience.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-rocket"></i>
+                <h3 class="gold-text">Speed Optimization</h3>
+                <p style="color: #888;">Lightning fast performance on all devices.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section-padding" style="background: #0d0d0d;">
+        <h2 class="gold-text" style="font-size: 40px; margin-bottom: 50px;">Featured Masterpieces</h2>
+        <div class="grid">
             <div class="project-card">
-                <div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600');"></div>
-                <div style="padding: 20px;">
+                <div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800');"></div>
+                <div style="padding: 25px;">
                     <h3 class="gold-text">The Brews House</h3>
-                    <p style="font-size: 14px; color: #888;">Luxury Cafe Experience</p>
+                    <p style="color: #888;">Premium Cafe & Lifestyle Website.</p>
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600');"></div>
-                <div style="padding: 20px;">
+                <div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800');"></div>
+                <div style="padding: 25px;">
                     <h3 class="gold-text">Ember & Oak</h3>
-                    <p style="font-size: 14px; color: #888;">Fine Dining Steakhouse</p>
+                    <p style="color: #888;">Luxury Fine Dining Steakhouse.</p>
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600');"></div>
-                <div style="padding: 20px;">
+                <div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800');"></div>
+                <div style="padding: 25px;">
                     <h3 class="gold-text">Verdict Restaurant</h3>
-                    <p style="font-size: 14px; color: #888;">Modern Gastronomy</p>
+                    <p style="color: #888;">Modern Gastronomy Portfolio.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="contact-container">
-        <h2 class="gold-text" style="text-align: center;">Partner with Us</h2>
-        <form action="https://formspree.io/f/teamveltro@gmail.com" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="_replyto" placeholder="Your Email" required>
-            <textarea name="message" rows="5" placeholder="Tell us about your project" required></textarea>
-            <button type="submit">Send Inquiry</button>
-        </form>
+    <section id="contact" class="section-padding">
+        <div class="contact-container">
+            <h2 class="gold-text" style="font-size: 35px; margin-bottom: 10px;">Get In Touch</h2>
+            <p style="color: #888; margin-bottom: 30px;">Let's discuss your next big project.</p>
+            <form action="https://formspree.io/f/teamveltro@gmail.com" method="POST">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <textarea name="message" rows="5" placeholder="Your Project Vision..." required></textarea>
+                <button type="submit" class="submit-btn">Send Inquiry</button>
+            </form>
+        </div>
     </section>
 
-    <footer style="text-align: center; background: #000; padding-bottom: 50px;">
+    <footer>
+        <h2 class="gold-text">VELTRO AGENCY</h2>
         <div class="social-bar">
             <a href="tel:+919766653504" class="social-icon" title="Call Us"><i class="fas fa-phone"></i></a>
             <a href="https://wa.me/919766653504?text=Hi%20Veltro%20Agency,%20I%20want%20to%20discuss%20a%20project." class="social-icon" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
             <a href="https://www.instagram.com/veltro_agency" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
             <a href="https://www.linkedin.com/in/veltro-agency-489b11402" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
         </div>
-        <p style="color: #555; font-size: 12px;">© 2026 VELTRO AGENCY. All Rights Reserved.</p>
+        <p style="color: #444; font-size: 13px; letter-spacing: 1px;">&copy; 2026 VELTRO AGENCY | DESIGNED FOR THE ELITE</p>
     </footer>
 
 </body>
 </html>
-
